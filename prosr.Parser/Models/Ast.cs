@@ -9,6 +9,6 @@ namespace prosr.Parser.Models
             Nodes = new List<INode>();
         }
 
-        public IEnumerable<INode> Nodes { get; set; }
+        public IList<INode> Nodes { get; set; }
     }
 }
