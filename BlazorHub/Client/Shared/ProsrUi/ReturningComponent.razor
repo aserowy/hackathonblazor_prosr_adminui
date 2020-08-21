@@ -1,0 +1,5 @@
+﻿<p><span>@ReturningData.Ident</span> Server sendet an @(ReturningData.Target == "caller" ? "Client" : "alle"): <i>Type @ReturningData.ResponseType</i></p>
+@code {
+    [Parameter]
+    public prosr.Parser.Models.Returning ReturningData { get; set; }
+}

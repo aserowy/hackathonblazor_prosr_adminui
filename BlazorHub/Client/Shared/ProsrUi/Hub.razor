@@ -1,0 +1,44 @@
+﻿<h4 class="opblock-tag no-desc" id="operations-tag-ControlCenter">
+    <a class="nostyle">
+        <span>@HubData.Ident</span>
+    </a>
+    <small></small>
+    <button class="expand-operation" title="Collapse operation">
+        <svg class="arrow"
+             width="20" height="20">
+            <use href="#large-arrow-down" xlink:href="#large-arrow-down"></use>
+        </svg>
+    </button>
+</h4>
+<div style="height: auto; border: none; margin: 0px; padding: 0px;">
+    <span>
+        <div class="opblock opblock-get"
+             id="operations-ControlCenter-ControlCenter_GetCaseState">
+            <div class="opblock-summary opblock-summary-get">
+                <span class="opblock-summary-method">GET</span><span class="opblock-summary-path">
+                    <a class="nostyle"><span>/ControlCenter/state</span></a>
+                </span>
+                <div class="opblock-summary-description">
+                    Returns the state of all open cases and
+                    the associated users || Permissions required: User needs permission
+                    'mr.permissions:monitor-service.read' (Const Name: 'AccessMonitorService')
+                </div>
+            </div>
+        </div>
+        @foreach (var sending in Sendings)
+        {
+            <SendingComponent SendingData="sending"></SendingComponent>
+        }
+        @foreach (var returning in Returnings)
+        {
+            <ReturningComponent ReturningData="returning"></ReturningComponent>
+        }
+    </span>
+</div>
+    @code{
+        [Parameter]
+        public prosr.Parser.Models.Hub HubData { get; set; }
+
+        public IEnumerable<prosr.Parser.Models.Sending> Sendings => HubData.Nodes.OfType<prosr.Parser.Models.Sending>();
+        public IEnumerable<prosr.Parser.Models.Returning> Returnings => HubData.Nodes.OfType<prosr.Parser.Models.Returning>();
+    }

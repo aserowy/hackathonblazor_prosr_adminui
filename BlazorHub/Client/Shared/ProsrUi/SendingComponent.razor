@@ -1,0 +1,12 @@
+﻿<p>
+    <b>@SendingData.Ident</b>
+    Client sendet an Server: @SendingData.InputType
+    @if (SendingData.Returning != null)
+    {
+        <ReturningComponent ReturningData="SendingData.Returning"></ReturningComponent>
+    }
+</p>
+@code {
+    [Parameter]
+    public prosr.Parser.Models.Sending SendingData { get; set; }
+}

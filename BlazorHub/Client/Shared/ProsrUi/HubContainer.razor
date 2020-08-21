@@ -1,0 +1,14 @@
+﻿<span>
+    <div class="opblock-tag-section is-open">
+        <div style="height: auto; border: none; margin: 0px; padding: 0px;">
+            @foreach (var item in this.Hubs)
+            {
+                <Hub HubData="item"></Hub>
+            }
+        </div>
+    </div>
+</span>
+@code{
+    [Parameter]
+    public IEnumerable<prosr.Parser.Models.Hub> Hubs { get; set; }
+}

@@ -1,0 +1,11 @@
+﻿<div style="height: auto; border: none; margin: 0px; padding: 0px;">
+    @foreach (var message in Messages)
+    {
+        <Message MessageData="message"></Message>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public IEnumerable<prosr.Parser.Models.Message> Messages { get; set; }
+}
