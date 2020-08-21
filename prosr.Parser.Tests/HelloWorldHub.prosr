@@ -1,0 +1,19 @@
+﻿syntax = "prosr1";
+
+package prosr.Hub;
+
+hub HelloWorlHub {
+    action GreetCaller(HelloRequest) calls HandleGreetings(HelloResponse) on caller;
+    action GreetAll(HelloRequest) calls HandleGreetingsToAll(HelloResponse) on all;
+    
+    calls InformGreetCall(HelloRequest) on all;
+}
+
+message HelloRequest {
+    string Name = 1;
+}
+
+message HelloResponse {
+    string ServerMessage = 1;
+    HelloRequest Request = 2;
+}

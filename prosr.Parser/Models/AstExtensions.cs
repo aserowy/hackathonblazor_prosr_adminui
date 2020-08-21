@@ -28,6 +28,8 @@ namespace prosr.Parser.Models
                     }
                 }
             }
+
+            ast.Nodes = nodes;
         }
     }
 }
