@@ -16,4 +16,14 @@
     <ProjectReference Include="..\..\prosr.Parser\prosr.Parser.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Tmp\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\js\anchorLink.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

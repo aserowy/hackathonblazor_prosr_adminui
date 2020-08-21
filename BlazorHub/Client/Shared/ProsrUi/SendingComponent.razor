@@ -1,12 +1,22 @@
-﻿<p>
-    <b>@SendingData.Ident</b>
-    Client sendet an Server: @SendingData.InputType
-    @if (SendingData.Returning != null)
-    {
-        <ReturningComponent ReturningData="SendingData.Returning"></ReturningComponent>
-    }
-</p>
+﻿
+<div class="opblock-section-header">
+    <div class="tab-header">
+        <h4 class="opblock-title">Parameters <AnchorLink href="@("#message-"+SendingData.InputType.ToLowerInvariant())">@SendingData.InputType</AnchorLink></h4>
+    </div>
+</div>
+<div class="table-container">
+    <Message MessageData="MessageResolver.GetMessageByName(SendingData.InputType)"></Message>
+
+</div>
+@if (SendingData.Returning != null)
+{
+    <ReturningComponent ReturningData="SendingData.Returning"></ReturningComponent>
+}
+
 @code {
     [Parameter]
     public prosr.Parser.Models.Sending SendingData { get; set; }
+
+    [Inject]
+    public Business.IMessageResolver MessageResolver { get; set; }
 }
