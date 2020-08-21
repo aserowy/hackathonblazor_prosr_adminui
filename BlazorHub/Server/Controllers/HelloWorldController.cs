@@ -1,16 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.IO;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace BlazorHub.Server.Controllers
 {
     [ApiController]
-    [Route("[controller]/prosr")]
+    [Route("api/[controller]/prosr")]
     public class HelloWorldController : ControllerBase
     {
         [HttpGet]
-        public static Task<string> GetAsync()
+        public Task<string> GetAsync()
         {
-            return System.IO.File.ReadAllTextAsync("HelloWorldHub.prosr");
+            var workingDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            var definitionPath = Path.Combine(workingDir, "HelloWorldHub.prosr");
+
+            return System.IO.File.ReadAllTextAsync(definitionPath);
         }
     }
 }

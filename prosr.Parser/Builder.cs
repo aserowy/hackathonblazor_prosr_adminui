@@ -9,7 +9,7 @@ namespace prosr.Parser
         Ast Build(string prosr);
     }
 
-    internal sealed class Builder : IBuilder
+    public sealed class Builder : IBuilder
     {
         public Ast Build(string prosr)
         {
