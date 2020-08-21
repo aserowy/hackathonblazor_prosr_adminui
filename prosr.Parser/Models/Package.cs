@@ -14,6 +14,6 @@ namespace prosr.Parser.Models
         public Token Token => Token.Package;
 
         public string Ident { get; set; }
-        public IEnumerable<INode> Nodes { get; set; }
+        public IList<INode> Nodes { get; set; }
     }
 }

@@ -14,6 +14,6 @@ namespace prosr.Parser.Models
         public Token Token => Token.Message;
 
         public string Ident { get; set; }
-        public IEnumerable<Field> Nodes { get; set; }
+        public IList<Field> Nodes { get; set; }
     }
 }
