@@ -41,6 +41,14 @@ namespace BlazorHub.Client.Tmp
                             new Field(false, "Int32", "Property2", 1)
                         }
                     },
+                    new Message("ResponseType2")
+                    {
+                        Nodes = new List<Field>
+                        {
+                            new Field(false, "string", "Property1", 0),
+                            new Field(false, "Int32", "Property2", 1)
+                        }
+                    },
                     new Message("InputType2")
                     {
                         Nodes = new List<Field>

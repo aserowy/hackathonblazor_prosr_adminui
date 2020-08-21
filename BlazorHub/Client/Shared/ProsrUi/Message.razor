@@ -1,14 +1,10 @@
 ﻿
-<div id="model-MobileRetter.CaseService.Client.DescriptionDto" class="model-container">
-    <span class="models-jump-to-path">
-    </span><span class="model-box">
-        <span style="cursor: pointer;">
-            <span class="model-box">
-                <span class="model model-title">@MessageData.Ident</span>
-            </span>
-        </span><span style="cursor: pointer;"><span class="model-toggle collapsed"></span></span>
-    </span>
-</div>
+<pre>
+@foreach (var field in MessageData.Nodes.OfType<prosr.Parser.Models.Field>())
+{
+    <FieldComponent Field="field"></FieldComponent>
+}
+</pre>
 
 @code {
     [Parameter]

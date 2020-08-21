@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using BlazorHub.Client.Tmp;
+using BlazorHub.Client.Business;
 
 namespace BlazorHub.Client
 {
@@ -15,6 +16,7 @@ namespace BlazorHub.Client
             builder.RootComponents.Add<App>("app");
 
             builder.Services.AddTransient<ITmpModelFactory, TmpModelFactory>();
+            builder.Services.AddTransient<IMessageResolver, MessageResolver>();
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
             await builder.Build().RunAsync();
