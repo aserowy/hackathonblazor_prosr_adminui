@@ -9,8 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Client\BlazorHub.Client.csproj" />
-    <ProjectReference Include="..\Shared\BlazorHub.Shared.csproj" />
+    <ProjectReference Include="..\..\prosr.Hub\prosr.Hub.csproj" />
   </ItemGroup>
 
 
