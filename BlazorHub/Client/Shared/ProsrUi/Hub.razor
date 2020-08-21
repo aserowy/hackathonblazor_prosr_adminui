@@ -16,11 +16,14 @@
 {
     <div style="height: auto; border: none; margin: 0px; padding: 0px;">
         <span>
-            <div class="opblock opblock-get"
+            @{
+                var actionType = ActionTypeNameResolver.ResolveType(action);
+             }
+            <div class="opblock opblock-@actionType.GetGroupName()"
                  id="operations-ControlCenter-ControlCenter_GetCaseState">
-                <div class="opblock-summary opblock-summary-get">
+                <div class="opblock-summary opblock-summary-@actionType.GetGroupName()">
                     <span class="opblock-summary-method">
-                        @action.GetType().FullName
+                        @actionType.GetActionName()
                     </span><span class="opblock-summary-path">
                         <a class="nostyle">
                             <span>
@@ -58,6 +61,7 @@
 @code{
     [Parameter]
     public prosr.Parser.Models.Hub HubData { get; set; }
+    [Inject] public BlazorHub.Client.Business.IActionTypeNameResolver ActionTypeNameResolver { get; set; }
 
     public IEnumerable<prosr.Parser.Models.Sending> Sendings => HubData.Nodes.OfType<prosr.Parser.Models.Sending>();
     public IEnumerable<prosr.Parser.Models.Returning> Returnings => HubData.Nodes.OfType<prosr.Parser.Models.Returning>();

@@ -16,6 +16,7 @@ namespace BlazorHub.Client
             builder.RootComponents.Add<App>("app");
 
             builder.Services.AddTransient<ITmpModelFactory, TmpModelFactory>();
+            builder.Services.AddTransient<IActionTypeNameResolver, ActionTypeResolver>();
             builder.Services.AddTransient<IMessageResolver, MessageResolver>();
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
