@@ -1,0 +1,8 @@
+﻿<h2>Package @PackageData.Ident</h2>
+<HubContainer Hubs="PackageData.Nodes.OfType<Hub>()"></HubContainer>
+<MessageContainer Messages="PackageData.Nodes.OfType<Message>()"></MessageContainer>
+
+@code {
+    [Parameter]
+    public Package PackageData { get; set; }
+}

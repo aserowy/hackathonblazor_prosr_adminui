@@ -1,10 +1,10 @@
 ﻿<div style="height: auto; border: none; margin: 0px; padding: 0px;">
-    @foreach (var message in Messages)
+    @foreach (var message in (Messages ?? Array.Empty<prosr.Parser.Models.Message>()))
     {
         <a name="message-@message.Ident.ToLowerInvariant()" id="message-@message.Ident.ToLowerInvariant()"></a>
         <h4><b>@message.Ident</b></h4>
         <div class="table-container">
-            <Message MessageData="message"></Message>
+            <MessageComponent MessageData="message"></MessageComponent>
         </div>
     }
 </div>

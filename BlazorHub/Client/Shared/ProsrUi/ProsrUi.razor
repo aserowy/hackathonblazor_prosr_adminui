@@ -22,6 +22,10 @@
         </section>
     </div>
     <div class="wrapper">
+        @foreach (var package in (Packages ?? Array.Empty<Package>()))
+        {
+            <PackageComponent PackageData="package"></PackageComponent>
+        }
         <section class="block col-12 block-desktop col-12-desktop">
             <div>
                 <HubContainer Hubs="Hubs"></HubContainer>
@@ -46,6 +50,7 @@
     [Parameter]
     public prosr.Parser.Models.Ast Ast { get; set; }
 
+    public IEnumerable<prosr.Parser.Models.Package> Packages => Ast?.Nodes?.OfType<prosr.Parser.Models.Package>();
     public IEnumerable<prosr.Parser.Models.Hub> Hubs => Ast?.Nodes?.OfType<prosr.Parser.Models.Hub>();
     public IEnumerable<prosr.Parser.Models.Message> Messages => Ast?.Nodes?.OfType<prosr.Parser.Models.Message>();
 }

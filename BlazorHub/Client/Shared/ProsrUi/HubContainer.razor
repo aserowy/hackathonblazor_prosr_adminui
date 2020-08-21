@@ -1,14 +1,14 @@
 ﻿<span>
     <div class="opblock-tag-section is-open">
         <div style="height: auto; border: none; margin: 0px; padding: 0px;">
-            @foreach (var item in this.Hubs)
+            @foreach (var item in (this.Hubs ?? Array.Empty<prosr.Parser.Models.Hub>()))
             {
-                <Hub HubData="item"></Hub>
+                <HubComponent HubData="item"></HubComponent>
             }
-        </div>
+        </div>        
     </div>
 </span>
 @code{
     [Parameter]
-    public IEnumerable<prosr.Parser.Models.Hub> Hubs { get; set; }
+    public IEnumerable<prosr.Parser.Models.Hub> Hubs { get; set; } 
 }

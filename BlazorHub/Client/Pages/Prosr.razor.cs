@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using BlazorHub.Client.Business;
+using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Logging;
 using prosr.Parser;
 using prosr.Parser.Models;
@@ -13,6 +14,8 @@ namespace BlazorHub.Client.Pages
         [Inject] public HttpClient HttpClient { get; set; }
         [Inject] public IBuilder Builder { get; set; }
         [Inject] public ILogger<Prosr> Logger { get; set; }
+        [Inject] public IAstStore AstStore { get; set; }
+
 
         public Ast Ast { get; set; }
 
@@ -24,6 +27,8 @@ namespace BlazorHub.Client.Pages
 
             var ast = Builder.Build(prosr);
 
+            AstStore.Store(ast);
+            ast.GetType().GetMembers();
             Logger.LogError(JsonSerializer.Serialize(ast));
 
             Ast = ast;

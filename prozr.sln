@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorHub.Client", "BlazorH
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "prosr.Hub", "prosr.Hub\prosr.Hub.csproj", "{4921C91D-AB3A-4E76-A879-0D3601FE529B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "prosr.Parser.Tests", "prosr.Parser.Tests\prosr.Parser.Tests.csproj", "{0F887DE1-BD29-4191-9C06-213CEE36E3FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "prosr.Parser.Tests", "prosr.Parser.Tests\prosr.Parser.Tests.csproj", "{0F887DE1-BD29-4191-9C06-213CEE36E3FA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
