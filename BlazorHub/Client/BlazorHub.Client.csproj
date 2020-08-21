@@ -14,7 +14,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\prosr.Parser\prosr.Parser.csproj" />
-    <ProjectReference Include="..\Shared\BlazorHub.Shared.csproj" />
   </ItemGroup>
 
 </Project>
