@@ -19,7 +19,6 @@
     "BlazorHub": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "/prosr",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

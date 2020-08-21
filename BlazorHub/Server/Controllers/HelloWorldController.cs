@@ -8,7 +8,7 @@ namespace BlazorHub.Server.Controllers
     public class HelloWorldController : ControllerBase
     {
         [HttpGet]
-        public static Task<string> GetAsync()
+        public Task<string> GetAsync()
         {
             return System.IO.File.ReadAllTextAsync("HelloWorldHub.prosr");
         }
