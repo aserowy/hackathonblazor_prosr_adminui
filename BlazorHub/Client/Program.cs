@@ -17,6 +17,7 @@ namespace BlazorHub.Client
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("app");
 
+            builder.Services.AddTransient<IActionTypeNameResolver, ActionTypeResolver>();
             builder.Services.AddTransient<IMessageResolver, MessageResolver>();
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:5001") });
             builder.Services.AddTransient<IBuilder, Builder>();
