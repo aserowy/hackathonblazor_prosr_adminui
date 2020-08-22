@@ -17,9 +17,9 @@ namespace prosr.Hub
 
 	public interface IHelloWorlHubClientBase
 	{
-		Task InformGreetCall(HelloRequest message);
-		Task HandleGreetingsToAll(HelloResponse message);
 		Task HandleGreetings(HelloResponse message);
+		Task GreetCall(HelloRequest message);
+		Task HandleGreetingsToAll(HelloResponse message);
 	}
 
 	public abstract class HelloWorlHubClientBase : IHelloWorlHubClient
@@ -41,11 +41,11 @@ namespace prosr.Hub
 			await GetConnection().ConfigureAwait(false);
 		}
 
-		public abstract Task InformGreetCall(HelloRequest message);
+		public abstract Task HandleGreetings(HelloResponse message);
+
+		public abstract Task GreetCall(HelloRequest message);
 
 		public abstract Task HandleGreetingsToAll(HelloResponse message);
-
-		public abstract Task HandleGreetings(HelloResponse message);
 
 		public async Task CallGreetAllOnHub(HelloRequest message)
 		{
@@ -93,7 +93,7 @@ namespace prosr.Hub
 
 		private HubConnection BindClientMethods(ref HubConnection connection)
 		{
-			connection.On<HelloRequest>("InformGreetCall", message => InformGreetCall(message));
+			connection.On<HelloRequest>("GreetCall", message => GreetCall(message));
 			connection.On<HelloResponse>("HandleGreetingsToAll", message => HandleGreetingsToAll(message));
 			connection.On<HelloResponse>("HandleGreetings", message => HandleGreetings(message));
 
@@ -137,9 +137,9 @@ namespace prosr.Hub
 
 	public abstract class HelloWorlHubBase : Hub<IHelloWorlHubClientBase>
 	{
-		protected Task SendInformGreetCallOnAllAsync(HelloRequest message)
+		protected Task SendGreetCallOnAllAsync(HelloRequest message)
 		{
-			return Clients.All.InformGreetCall(message);
+			return Clients.All.GreetCall(message);
 		}
 
 		public async Task GreetAll(HelloRequest message)

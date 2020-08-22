@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-using prosr.Parser.Models;
+﻿using prosr.Parser.Models;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,18 +12,14 @@ namespace BlazorHub.Client.Business
     internal class MessageResolver : IMessageResolver
     {
         private readonly IAstStore _astStore;
-        private readonly ILogger<MessageResolver> _logger;
 
-        public MessageResolver(
-            IAstStore astStore,
-            ILogger<MessageResolver> logger)
+        public MessageResolver(IAstStore astStore)
         {
             _astStore = astStore;
-            _logger = logger;
         }
+
         public Message GetMessageByName(string ident)
         {
-            _logger.LogWarning(ident);
             return _astStore
                 .Ast
                 .Nodes
