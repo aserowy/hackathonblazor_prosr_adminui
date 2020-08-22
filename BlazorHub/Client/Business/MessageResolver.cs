@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using prosr.Parser.Models;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace BlazorHub.Client.Business
@@ -27,6 +28,9 @@ namespace BlazorHub.Client.Business
             return _astStore
                 .Ast
                 .Nodes
+                .SelectMany(x => x is Package package
+                                 ? package.Nodes
+                                 : new List<INode>() { x })
                 .OfType<Message>()
                 .SingleOrDefault(x => x.Ident == ident);
         }
