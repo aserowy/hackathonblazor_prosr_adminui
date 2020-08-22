@@ -11,14 +11,13 @@
         </svg>
     </button>
 </h4>
-
 @foreach (var action in this.HubData.Nodes)
 {
     <div style="height: auto; border: none; margin: 0px; padding: 0px;">
         <span>
             @{
                 var actionType = ActionTypeNameResolver.ResolveType(action);
-             }
+            }
             <div class="opblock opblock-@actionType.GetGroupName()"
                  id="operations-ControlCenter-ControlCenter_GetCaseState">
                 <div class="opblock-summary opblock-summary-@actionType.GetGroupName()">

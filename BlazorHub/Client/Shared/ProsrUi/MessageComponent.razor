@@ -1,5 +1,5 @@
 ﻿<div>
-@foreach (var field in MessageData.Nodes.OfType<prosr.Parser.Models.Field>())
+@foreach (var field in MessageData?.Nodes.OfType<prosr.Parser.Models.Field>() ?? Array.Empty<prosr.Parser.Models.Field>())
 {
     <FieldComponent Field="field"></FieldComponent>
 }

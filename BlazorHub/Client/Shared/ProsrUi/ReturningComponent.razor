@@ -2,15 +2,14 @@
 <div class="opblock-section-header">
     <div class="tab-header">
         <h4 class="opblock-title">
-            Parameters <a href="#message-@ReturningData.ResponseType.ToLowerInvariant()">@ReturningData.ResponseType</a> [@@@(ReturningData.Target == "caller" ? "Client" : "alle")]
+            Parameters <a href="#message-@ReturningData.ResponseType.ToLowerInvariant()">@ReturningData.ResponseType</a> [@@@(ReturningData.Target == "caller" ? "client" : "all")]
         </h4>
     </div>
 </div>
 <div class="table-container">
-    <Message MessageData="MessageResolver.GetMessageByName(ReturningData.ResponseType)"></Message>
+    <MessageComponent MessageData="MessageResolver.GetMessageByName(ReturningData.ResponseType)"></MessageComponent>
 </div>
 
-@*<p><span>@ReturningData.Ident</span> Server sendet an @(ReturningData.Target == "caller" ? "Client" : "alle"): <i>Type @ReturningData.ResponseType</i></p>*@
 @code {
     [Parameter]
     public prosr.Parser.Models.Returning ReturningData { get; set; }

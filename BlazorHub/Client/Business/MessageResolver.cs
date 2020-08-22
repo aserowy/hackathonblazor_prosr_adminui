@@ -23,11 +23,12 @@ namespace BlazorHub.Client.Business
         }
         public Message GetMessageByName(string ident)
         {
+            _logger.LogWarning(ident);
             return _astStore
                 .Ast
                 .Nodes
                 .OfType<Message>()
-                .Single(x => x.Ident == ident);
+                .SingleOrDefault(x => x.Ident == ident);
         }
     }
 }
