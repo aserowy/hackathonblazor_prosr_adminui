@@ -10,16 +10,9 @@ namespace BlazorHub.Client.Business
 
     internal class GenericHubClientFactory : IGenericHubClientFactory
     {
-        private readonly IHubConnectionBuilder _connectionBuilder;
-
-        public GenericHubClientFactory(IHubConnectionBuilder connectionBuilder)
-        {
-            _connectionBuilder = connectionBuilder;
-        }
-
         public IGenericHubClient Create(Uri hub)
         {
-            return new GenericHubClient(hub, _connectionBuilder);
+            return new GenericHubClient(hub, new HubConnectionBuilder());
         }
     }
 }
