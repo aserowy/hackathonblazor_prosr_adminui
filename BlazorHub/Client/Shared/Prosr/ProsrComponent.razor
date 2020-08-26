@@ -32,16 +32,14 @@
             </div>
         </section>
     </div>
-
     <MessageContainer Messages="Messages"></MessageContainer>
-
 </div>
 
 @code {
     [Parameter]
-    public prosr.Parser.Models.Ast Ast { get; set; }
+    public Ast Ast { get; set; }
 
-    public IEnumerable<prosr.Parser.Models.Package> Packages => Ast?.Nodes?.OfType<prosr.Parser.Models.Package>();
-    public IEnumerable<prosr.Parser.Models.Hub> Hubs => Ast?.Nodes?.OfType<prosr.Parser.Models.Hub>();
-    public IEnumerable<prosr.Parser.Models.Message> Messages => Ast?.Nodes?.OfType<prosr.Parser.Models.Message>();
+    public IEnumerable<Package> Packages => Ast?.Nodes?.OfType<Package>();
+    public IEnumerable<Hub> Hubs => Ast?.Nodes?.OfType<Hub>();
+    public IEnumerable<Message> Messages => Ast?.Nodes?.OfType<Message>();
 }
