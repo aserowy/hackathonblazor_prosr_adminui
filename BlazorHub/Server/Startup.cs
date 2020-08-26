@@ -1,3 +1,4 @@
+using BlazorHub.Server.Hubs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -20,8 +21,10 @@ namespace BlazorHub.Server
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
+
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,7 +56,11 @@ namespace BlazorHub.Server
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
+
                 endpoints.MapControllers();
+
+                endpoints.MapHub<HelloWorldHub>("/HelloWorldHub");
+
                 endpoints.MapFallbackToFile("index.html");
             });
         }

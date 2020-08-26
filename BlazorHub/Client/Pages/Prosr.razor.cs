@@ -18,7 +18,7 @@ namespace BlazorHub.Client.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            var prosr = await HttpClient.GetStringAsync("api/helloworld/prosr");
+            var prosr = await HttpClient.GetStringAsync("hub/helloworldhub/prosr");
             var ast = Builder.Build(prosr);
 
             AstStore.Store(ast);

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 namespace BlazorHub.Server.Controllers
 {
     [ApiController]
-    [Route("api/[controller]/prosr")]
-    public class HelloWorldController : ControllerBase
+    [Route("hub/[controller]/prosr")]
+    public class HelloWorldHubController : ControllerBase
     {
         [HttpGet]
         public Task<string> GetAsync()
