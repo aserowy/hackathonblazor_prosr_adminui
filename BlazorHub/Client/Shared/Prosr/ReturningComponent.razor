@@ -11,9 +11,8 @@
 </div>
 
 @code {
-    [Parameter]
-    public prosr.Parser.Models.Returning ReturningData { get; set; }
+    [Parameter] public IGenericHubClient HubClient { get; set; }
+    [Parameter] public Returning ReturningData { get; set; }
 
-    [Inject]
-    public Business.IMessageResolver MessageResolver { get; set; }
+    [Inject] public Business.IMessageResolver MessageResolver { get; set; }
 }

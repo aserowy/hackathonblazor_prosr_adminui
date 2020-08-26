@@ -24,11 +24,11 @@
     <div class="wrapper">
         @foreach (var package in (Packages ?? Array.Empty<Package>()))
         {
-            <PackageComponent PackageData="package"></PackageComponent>
+            <PackageComponent HubClient="HubClient" PackageData="package"></PackageComponent>
         }
         <section class="block col-12 block-desktop col-12-desktop">
             <div>
-                <HubContainer Hubs="Hubs"></HubContainer>
+                <HubContainer HubClient="HubClient" Hubs="Hubs"></HubContainer>
             </div>
         </section>
     </div>
@@ -36,8 +36,8 @@
 </div>
 
 @code {
-    [Parameter]
-    public Ast Ast { get; set; }
+    [Parameter] public IGenericHubClient HubClient { get; set; }
+    [Parameter] public Ast Ast { get; set; }
 
     public IEnumerable<Package> Packages => Ast?.Nodes?.OfType<Package>();
     public IEnumerable<Hub> Hubs => Ast?.Nodes?.OfType<Hub>();

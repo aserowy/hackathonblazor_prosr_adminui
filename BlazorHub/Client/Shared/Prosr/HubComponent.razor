@@ -26,11 +26,11 @@
                     </span><span class="opblock-summary-path">
                         <a class="nostyle">
                             <span>
-                                @if (action is prosr.Parser.Models.Sending sending2)
+                                @if (action is Sending sending2)
                                 {
                                     @sending2.Ident
                                 }
-                                @if (action is prosr.Parser.Models.Returning returning2)
+                                @if (action is Returning returning2)
                                 {
                                     @returning2.Ident
                                 }
@@ -42,13 +42,13 @@
                     <div class="opblock-body">
                         <div class="opblock-section">
 
-                            @if (action is prosr.Parser.Models.Sending sending)
+                            @if (action is Sending sending)
                             {
-                                <SendingComponent SendingData="sending"></SendingComponent>
+                                <SendingComponent HubClient="HubClient" SendingData="sending"></SendingComponent>
                             }
-                            @if (action is prosr.Parser.Models.Returning returning)
+                            @if (action is Returning returning)
                             {
-                                <ReturningComponent ReturningData="returning"></ReturningComponent>
+                                <ReturningComponent HubClient="HubClient" ReturningData="returning"></ReturningComponent>
                             }
                         </div>
                     </div>
@@ -58,10 +58,11 @@
     </div>
 }
 @code{
-    [Parameter]
-    public prosr.Parser.Models.Hub HubData { get; set; }
+    [Parameter] public IGenericHubClient HubClient { get; set; }
+    [Parameter] public Hub HubData { get; set; }
+
     [Inject] public BlazorHub.Client.Business.IActionTypeNameResolver ActionTypeNameResolver { get; set; }
 
-    public IEnumerable<prosr.Parser.Models.Sending> Sendings => HubData.Nodes.OfType<prosr.Parser.Models.Sending>();
-    public IEnumerable<prosr.Parser.Models.Returning> Returnings => HubData.Nodes.OfType<prosr.Parser.Models.Returning>();
+    public IEnumerable<Sending> Sendings => HubData.Nodes.OfType<Sending>();
+    public IEnumerable<Returning> Returnings => HubData.Nodes.OfType<Returning>();
 }

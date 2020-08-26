@@ -3,6 +3,6 @@
 <MessageContainer Messages="PackageData.Nodes.OfType<Message>()"></MessageContainer>
 
 @code {
-    [Parameter]
-    public Package PackageData { get; set; }
+    [Parameter] public IGenericHubClient HubClient { get; set; }
+    [Parameter] public Package PackageData { get; set; }
 }

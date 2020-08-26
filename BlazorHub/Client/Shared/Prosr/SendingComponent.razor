@@ -13,9 +13,8 @@
 }
 
 @code {
-    [Parameter]
-    public prosr.Parser.Models.Sending SendingData { get; set; }
+    [Parameter] public IGenericHubClient HubClient { get; set; }
+    [Parameter] public Sending SendingData { get; set; }
 
-    [Inject]
-    public Business.IMessageResolver MessageResolver { get; set; }
+    [Inject] public Business.IMessageResolver MessageResolver { get; set; }
 }

@@ -1,11 +1,10 @@
 ﻿<div>
-@foreach (var field in MessageData?.Nodes.OfType<prosr.Parser.Models.Field>() ?? Array.Empty<prosr.Parser.Models.Field>())
+@foreach (var field in MessageData?.Nodes.OfType<Field>() ?? Array.Empty<Field>())
 {
     <FieldComponent Field="field"></FieldComponent>
 }
 </div>
 
 @code {
-    [Parameter]
-    public prosr.Parser.Models.Message MessageData { get; set; }
+    [Parameter] public Message MessageData { get; set; }
 }

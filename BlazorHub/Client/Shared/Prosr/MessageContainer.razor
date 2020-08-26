@@ -9,7 +9,7 @@
             <span>Models</span>
         </h4>
         <div style="height: auto; border: none; margin: 0px; padding: 0px;">
-            @foreach (var message in (Messages ?? Array.Empty<prosr.Parser.Models.Message>()))
+            @foreach (var message in (Messages ?? Array.Empty<Message>()))
             {
                 <a name="message-@message.Ident.ToLowerInvariant()" id="message-@message.Ident.ToLowerInvariant()"></a>
                 <h4><b>@message.Ident</b></h4>
@@ -22,6 +22,5 @@
 </section>
 
 @code {
-    [Parameter]
-    public IEnumerable<prosr.Parser.Models.Message> Messages { get; set; }
+    [Parameter] public IEnumerable<Message> Messages { get; set; }
 }
