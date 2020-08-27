@@ -7,14 +7,36 @@
 <div class="table-container">
     <MessageComponent MessageData="MessageResolver.GetMessageByName(SendingData.InputType)"></MessageComponent>
 </div>
+<div class="table-container">
+    <EditForm Model=@_request OnSubmit=@HandleFormSubmitAsync>
+        <InputTextArea @bind-Value=_request.Value></InputTextArea>
+
+        <button type="submit">Submit</button>
+    </EditForm>
+</div>
 @if (SendingData.Returning != null)
 {
     <ReturningComponent ReturningData="SendingData.Returning"></ReturningComponent>
 }
 
 @code {
-    [Parameter] public IGenericHubClient HubClient { get; set; }
+    [CascadingParameter] public IGenericHubClient HubClient { get; set; }
+
     [Parameter] public Sending SendingData { get; set; }
 
     [Inject] public Business.IMessageResolver MessageResolver { get; set; }
+
+    private FormModel _request = new FormModel();
+
+    private async Task HandleFormSubmitAsync()
+    {
+        if (HubClient is null)
+        {
+            return;
+        }
+
+        await HubClient
+            .InvokeAsync(SendingData.Ident, _request.Value)
+            .ConfigureAwait(false);
+    }
 }

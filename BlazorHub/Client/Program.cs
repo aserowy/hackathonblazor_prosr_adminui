@@ -1,6 +1,7 @@
 using BlazorHub.Client.Business;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using prosr.Parser;
 using System;
 using System.Net.Http;
@@ -14,6 +15,8 @@ namespace BlazorHub.Client
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("app");
+
+            builder.Services.AddLogging(bldr => bldr.SetMinimumLevel(LogLevel.Information));
 
             builder.Services.AddTransient<IActionTypeNameResolver, ActionTypeResolver>();
             builder.Services.AddTransient<IBuilder, Builder>();

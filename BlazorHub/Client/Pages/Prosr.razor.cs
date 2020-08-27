@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BlazorHub.Client.Pages
 {
-    public partial class Prosr
+    public partial class Prosr : IDisposable
     {
         [Inject] public HttpClient HttpClient { get; set; }
         [Inject] public IBuilder Builder { get; set; }
@@ -20,13 +20,34 @@ namespace BlazorHub.Client.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            var prosr = await HttpClient.GetStringAsync("hub/helloworldhub/prosr");
-            var ast = Builder.Build(prosr);
+#if DEBUG
+            await Task.Delay(10000);
+#endif
+            if (Ast is null)
+            {
 
-            AstStore.Store(ast);
+                var prosr = await HttpClient.GetStringAsync("hub/helloworldhub/prosr");
+                var ast = Builder.Build(prosr);
 
-            Ast = ast;
-            HubClient = ClientFactory.Create(new Uri("https://localhost:5001/hub/helloworldhub"));
+                AstStore.Store(ast);
+
+                Ast = ast;
+            }
+
+            if (HubClient is null)
+            {
+                HubClient = ClientFactory.Create(new Uri("https://localhost:5001/hub/helloworldhub"));
+            }
+        }
+
+        protected override void OnAfterRender(bool firstRender)
+        {
+            HubClient?.InitializeHubConnection();
+        }
+
+        public void Dispose()
+        {
+            HubClient.Dispose();
         }
     }
 }

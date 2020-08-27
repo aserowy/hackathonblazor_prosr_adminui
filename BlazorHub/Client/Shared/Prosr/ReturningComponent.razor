@@ -9,10 +9,33 @@
 <div class="table-container">
     <MessageComponent MessageData="MessageResolver.GetMessageByName(ReturningData.ResponseType)"></MessageComponent>
 </div>
+<div class="table-container">
+    <EditForm Model=@_response>
+        <InputTextArea @bind-Value=_response.Value></InputTextArea>
+    </EditForm>
+</div>
 
 @code {
-    [Parameter] public IGenericHubClient HubClient { get; set; }
+    [CascadingParameter] public IGenericHubClient HubClient { get; set; }
+
     [Parameter] public Returning ReturningData { get; set; }
 
     [Inject] public Business.IMessageResolver MessageResolver { get; set; }
+
+    private bool _isInitialized = false;
+    private FormModel _response = new FormModel();
+
+    protected override Task OnInitializedAsync()
+    {
+        if (_isInitialized || HubClient is null)
+        {
+            return Task.CompletedTask;
+        }
+
+        HubClient.RegisterBinding(ReturningData.Ident, rspns => _response.Value = rspns);
+
+        _isInitialized = true;
+
+        return Task.CompletedTask;
+    }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -17,31 +18,47 @@ namespace BlazorHub.Client.Business
     {
         private readonly Uri _hub;
         private readonly IHubConnectionBuilder _hubConnectionBuilder;
+        private readonly ILogger<GenericHubClient> _logger;
         private readonly IDictionary<string, Action<string>> _bindings;
 
+        private bool _isInitialized = false;
         private bool _disposed = false;
         private HubConnection _connection;
 
-        public GenericHubClient(Uri hub, IHubConnectionBuilder hubConnectionBuilder)
+        public GenericHubClient(Uri hub, IHubConnectionBuilder hubConnectionBuilder, ILogger<GenericHubClient> logger)
         {
             _hub = hub;
             _hubConnectionBuilder = hubConnectionBuilder;
+            _logger = logger;
 
             _bindings = new Dictionary<string, Action<string>>();
         }
 
         public async Task InitializeHubConnection()
         {
+            if (_isInitialized)
+            {
+                return;
+            }
+
             await GetConnection().ConfigureAwait(false);
+
+            _isInitialized = true;
+
+            _logger.LogInformation($"Hub connection initialized.");
         }
 
         public void RegisterBinding(string calls, Action<string> handleResponse)
         {
             _bindings.Add(calls, handleResponse);
+
+            _logger.LogInformation($"Binding for {calls} registered.");
         }
 
         public Task InvokeAsync(string action, string model)
         {
+            _logger.LogInformation($"Action {action} invoked with {model}.");
+
             return _connection.InvokeAsync(action, model);
         }
 

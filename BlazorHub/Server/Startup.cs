@@ -24,7 +24,7 @@ namespace BlazorHub.Server
 
             services.AddControllersWithViews();
             services.AddRazorPages();
-            services.AddSignalR();
+            services.AddSignalR(optns => optns.EnableDetailedErrors = true);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,7 +59,7 @@ namespace BlazorHub.Server
 
                 endpoints.MapControllers();
 
-                endpoints.MapHub<HelloWorldHub>("/HelloWorldHub");
+                endpoints.MapHub<HelloWorldHub>("/hub/HelloWorldHub");
 
                 endpoints.MapFallbackToFile("index.html");
             });

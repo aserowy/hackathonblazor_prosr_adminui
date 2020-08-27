@@ -23,7 +23,8 @@
                 <div class="opblock-summary opblock-summary-@actionType.GetGroupName()">
                     <span class="opblock-summary-method">
                         @actionType.GetActionName()
-                    </span><span class="opblock-summary-path">
+                    </span>
+                    <span class="opblock-summary-path">
                         <a class="nostyle">
                             <span>
                                 @if (action is Sending sending2)
@@ -44,11 +45,11 @@
 
                             @if (action is Sending sending)
                             {
-                                <SendingComponent HubClient="HubClient" SendingData="sending"></SendingComponent>
+                                <SendingComponent SendingData="sending"></SendingComponent>
                             }
                             @if (action is Returning returning)
                             {
-                                <ReturningComponent HubClient="HubClient" ReturningData="returning"></ReturningComponent>
+                                <ReturningComponent ReturningData="returning"></ReturningComponent>
                             }
                         </div>
                     </div>
@@ -58,7 +59,6 @@
     </div>
 }
 @code{
-    [Parameter] public IGenericHubClient HubClient { get; set; }
     [Parameter] public Hub HubData { get; set; }
 
     [Inject] public BlazorHub.Client.Business.IActionTypeNameResolver ActionTypeNameResolver { get; set; }
