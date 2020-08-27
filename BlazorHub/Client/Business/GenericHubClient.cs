@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace BlazorHub.Client.Business
@@ -11,7 +12,7 @@ namespace BlazorHub.Client.Business
         Task InitializeHubConnection();
 
         void RegisterBinding(string calls, Action<string> handleResponse);
-        Task InvokeAsync(string action, string model);
+        Task InvokeAsync(string action, object model);
     }
 
     internal class GenericHubClient : IGenericHubClient
@@ -55,9 +56,9 @@ namespace BlazorHub.Client.Business
             _logger.LogInformation($"Binding for {calls} registered.");
         }
 
-        public Task InvokeAsync(string action, string model)
+        public Task InvokeAsync(string action, object model)
         {
-            _logger.LogInformation($"Action {action} invoked with {model}.");
+            _logger.LogInformation($"Action {action} invoked with {JsonSerializer.Serialize(model)}.");
 
             return _connection.InvokeAsync(action, model);
         }

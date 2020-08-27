@@ -20,10 +20,12 @@ namespace BlazorHub.Client
 
             builder.Services.AddTransient<IActionTypeNameResolver, ActionTypeResolver>();
             builder.Services.AddTransient<IBuilder, Builder>();
+            builder.Services.AddTransient<IFieldTypeResolver, FieldTypeResolver>();
             builder.Services.AddTransient<IGenericHubClientFactory, GenericHubClientFactory>();
             builder.Services.AddTransient<IMessageResolver, MessageResolver>();
             builder.Services.AddTransient<IMessageResolverFactory, MessageResolverFactory>();
             builder.Services.AddTransient<IMessageTypeFactory, MessageTypeFactory>();
+            builder.Services.AddTransient<IObjectResolver, ObjectResolver>();
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:5001") });
 
