@@ -25,8 +25,6 @@
 
     [Parameter] public Sending SendingData { get; set; }
 
-    [Inject] public IObjectResolver ObjectResolver { get; set; }
-
     private FormModel _request = new FormModel();
 
     private async Task HandleFormSubmitAsync()
@@ -36,8 +34,7 @@
             return;
         }
 
-        var message = MessageResolver.GetByName(SendingData.InputType);
-        var model = ObjectResolver.Get(message, _request.Value);
+        var model = MessageResolver.GetObject(SendingData.InputType, _request.Value);
 
         await HubClient
             .InvokeAsync(SendingData.Ident, model)

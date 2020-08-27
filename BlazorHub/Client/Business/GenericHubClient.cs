@@ -11,7 +11,7 @@ namespace BlazorHub.Client.Business
     {
         Task InitializeHubConnection();
 
-        void RegisterBinding(string calls, Action<string> handleResponse);
+        void RegisterBinding(string calls, Type type, Action<string> handleResponse);
         Task InvokeAsync(string action, object model);
     }
 
@@ -20,7 +20,7 @@ namespace BlazorHub.Client.Business
         private readonly Uri _hub;
         private readonly IHubConnectionBuilder _hubConnectionBuilder;
         private readonly ILogger<GenericHubClient> _logger;
-        private readonly IDictionary<string, Action<string>> _bindings;
+        private readonly IDictionary<string, (Type Type, Action<string> Action)> _bindings;
 
         private bool _isInitialized = false;
         private bool _disposed = false;
@@ -32,7 +32,7 @@ namespace BlazorHub.Client.Business
             _hubConnectionBuilder = hubConnectionBuilder;
             _logger = logger;
 
-            _bindings = new Dictionary<string, Action<string>>();
+            _bindings = new Dictionary<string, (Type Type, Action<string> Action)>();
         }
 
         public async Task InitializeHubConnection()
@@ -49,9 +49,9 @@ namespace BlazorHub.Client.Business
             _logger.LogInformation($"Hub connection initialized.");
         }
 
-        public void RegisterBinding(string calls, Action<string> handleResponse)
+        public void RegisterBinding(string calls, Type type, Action<string> handleResponse)
         {
-            _bindings.Add(calls, handleResponse);
+            _bindings.Add(calls, (type, handleResponse));
 
             _logger.LogInformation($"Binding for {calls} registered.");
         }
@@ -93,7 +93,15 @@ namespace BlazorHub.Client.Business
         {
             foreach (var binding in _bindings)
             {
-                connection.On(binding.Key, binding.Value);
+                var action = binding.Value.Action;
+
+                connection.On(binding.Key, new[] { binding.Value.Type }, (parameters, state) =>
+                {
+                    var action = (Action<string>)state;
+                    action(JsonSerializer.Serialize(parameters[0]));
+
+                    return Task.CompletedTask;
+                }, action);
             }
 
             return connection;

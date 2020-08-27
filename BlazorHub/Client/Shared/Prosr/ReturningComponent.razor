@@ -31,7 +31,10 @@
             return Task.CompletedTask;
         }
 
-        HubClient.RegisterBinding(ReturningData.Ident, rspns => _response.Value = rspns);
+        HubClient.RegisterBinding(
+            ReturningData.Ident, 
+            MessageResolver.GetType(ReturningData.ResponseType),
+            rspns => _response.Value = System.Text.Json.JsonSerializer.Serialize(rspns));
 
         _isInitialized = true;
 
