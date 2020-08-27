@@ -12,11 +12,12 @@ namespace BlazorHub.Client.Pages
     {
         [Inject] public HttpClient HttpClient { get; set; }
         [Inject] public IBuilder Builder { get; set; }
-        [Inject] public IAstStore AstStore { get; set; }
         [Inject] public IGenericHubClientFactory ClientFactory { get; set; }
+        [Inject] public IMessageResolverFactory MessageResolverFactory { get; set; }
 
         public Ast Ast { get; set; }
         public IGenericHubClient HubClient { get; set; }
+        public IMessageResolver MessageResolver { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -29,9 +30,8 @@ namespace BlazorHub.Client.Pages
                 var prosr = await HttpClient.GetStringAsync("hub/helloworldhub/prosr");
                 var ast = Builder.Build(prosr);
 
-                AstStore.Store(ast);
-
                 Ast = ast;
+                MessageResolver = MessageResolverFactory.Create(Ast);
             }
 
             if (HubClient is null)

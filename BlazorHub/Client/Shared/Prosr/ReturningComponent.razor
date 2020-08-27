@@ -7,7 +7,7 @@
     </div>
 </div>
 <div class="table-container">
-    <MessageComponent MessageData="MessageResolver.GetMessageByName(ReturningData.ResponseType)"></MessageComponent>
+    <MessageComponent MessageData=@MessageResolver.GetByName(ReturningData.ResponseType)></MessageComponent>
 </div>
 <div class="table-container">
     <EditForm Model=@_response>
@@ -17,10 +17,9 @@
 
 @code {
     [CascadingParameter] public IGenericHubClient HubClient { get; set; }
+    [CascadingParameter] public IMessageResolver MessageResolver { get; set; }
 
     [Parameter] public Returning ReturningData { get; set; }
-
-    [Inject] public Business.IMessageResolver MessageResolver { get; set; }
 
     private bool _isInitialized = false;
     private FormModel _response = new FormModel();

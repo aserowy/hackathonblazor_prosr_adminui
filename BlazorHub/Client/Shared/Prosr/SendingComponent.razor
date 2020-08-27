@@ -5,7 +5,7 @@
     </div>
 </div>
 <div class="table-container">
-    <MessageComponent MessageData="MessageResolver.GetMessageByName(SendingData.InputType)"></MessageComponent>
+    <MessageComponent MessageData=@MessageResolver.GetByName(SendingData.InputType)></MessageComponent>
 </div>
 <div class="table-container">
     <EditForm Model=@_request OnSubmit=@HandleFormSubmitAsync>
@@ -21,10 +21,9 @@
 
 @code {
     [CascadingParameter] public IGenericHubClient HubClient { get; set; }
+    [CascadingParameter] public IMessageResolver MessageResolver { get; set; }
 
     [Parameter] public Sending SendingData { get; set; }
-
-    [Inject] public Business.IMessageResolver MessageResolver { get; set; }
 
     private FormModel _request = new FormModel();
 

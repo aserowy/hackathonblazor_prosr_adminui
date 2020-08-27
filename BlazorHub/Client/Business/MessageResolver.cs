@@ -6,26 +6,23 @@ namespace BlazorHub.Client.Business
 {
     public interface IMessageResolver
     {
-        Message GetMessageByName(string ident);
+        Message GetByName(string ident);
     }
 
     internal class MessageResolver : IMessageResolver
     {
-        private readonly IAstStore _astStore;
+        private readonly Ast _ast;
 
-        public MessageResolver(IAstStore astStore)
+        public MessageResolver(Ast ast)
         {
-            _astStore = astStore;
+            _ast = ast;
         }
 
-        public Message GetMessageByName(string ident)
+        public Message GetByName(string ident)
         {
-            return _astStore
-                .Ast
+            return _ast
                 .Nodes
-                .SelectMany(x => x is Package package
-                                 ? package.Nodes
-                                 : new List<INode>() { x })
+                .SelectMany(x => x is Package package ? package.Nodes : new List<INode>() { x })
                 .OfType<Message>()
                 .SingleOrDefault(x => x.Ident == ident);
         }

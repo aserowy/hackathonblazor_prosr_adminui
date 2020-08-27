@@ -22,8 +22,9 @@ namespace BlazorHub.Client
             builder.Services.AddTransient<IBuilder, Builder>();
             builder.Services.AddTransient<IGenericHubClientFactory, GenericHubClientFactory>();
             builder.Services.AddTransient<IMessageResolver, MessageResolver>();
+            builder.Services.AddTransient<IMessageResolverFactory, MessageResolverFactory>();
+            builder.Services.AddTransient<IMessageTypeFactory, MessageTypeFactory>();
 
-            builder.Services.AddScoped<IAstStore, AstStore>();
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:5001") });
 
             await builder.Build().RunAsync();

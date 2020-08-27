@@ -3,5 +3,7 @@
 <link rel="stylesheet" type="text/css" href="https://gateway-test.mobile-retter.de/swagger/swagger-ui.css">
 
 <CascadingValue Value=@HubClient>
-    <ProsrComponent Ast="Ast" />
+    <CascadingValue Value=@MessageResolver>
+        <ProsrComponent Ast="Ast" />
+    </CascadingValue>
 </CascadingValue>
