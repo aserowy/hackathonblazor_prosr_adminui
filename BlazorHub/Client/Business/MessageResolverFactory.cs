@@ -9,16 +9,16 @@ namespace BlazorHub.Client.Business
 
     internal sealed class MessageResolverFactory : IMessageResolverFactory
     {
-        private readonly IMessageTypeFactory _messageTypeFactory;
+        private readonly ITypeResolver _typeResolver;
 
-        public MessageResolverFactory(IMessageTypeFactory messageTypeFactory)
+        public MessageResolverFactory(ITypeResolver typeResolver)
         {
-            _messageTypeFactory = messageTypeFactory;
+            _typeResolver = typeResolver;
         }
 
         public IMessageResolver Create(Ast ast)
         {
-            return new MessageResolver(_messageTypeFactory, ast);
+            return new MessageResolver(_typeResolver, ast);
         }
     }
 }

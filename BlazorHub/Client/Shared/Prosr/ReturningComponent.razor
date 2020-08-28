@@ -10,9 +10,7 @@
     <MessageComponent MessageData=@MessageResolver.GetByName(ReturningData.ResponseType)></MessageComponent>
 </div>
 <div class="table-container">
-    <EditForm Model=@_response>
-        <InputTextArea @bind-Value=_response.Value></InputTextArea>
-    </EditForm>
+    @_response.Value
 </div>
 
 @code {
@@ -34,7 +32,7 @@
         HubClient.RegisterBinding(
             ReturningData.Ident, 
             MessageResolver.GetType(ReturningData.ResponseType),
-            rspns => _response.Value = System.Text.Json.JsonSerializer.Serialize(rspns));
+            rspns => _response.Value = rspns);
 
         _isInitialized = true;
 

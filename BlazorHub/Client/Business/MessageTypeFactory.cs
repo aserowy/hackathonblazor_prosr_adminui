@@ -1,5 +1,6 @@
 ﻿using prosr.Parser.Models;
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
 
@@ -7,24 +8,17 @@ namespace BlazorHub.Client.Business
 {
     internal interface IMessageTypeFactory
     {
-        Type Create(Message message);
+        Type Create(IDictionary<string, Type> types, Message message);
     }
 
     internal sealed class MessageTypeFactory : IMessageTypeFactory
     {
-        private readonly IFieldTypeResolver _typeResolver;
-
-        public MessageTypeFactory(IFieldTypeResolver typeResolver)
-        {
-            _typeResolver = typeResolver;
-        }
-
-        public Type Create(Message message)
+        public Type Create(IDictionary<string, Type> types, Message message)
         {
             var typeBuilder = CreateTypeBuilder(message.Ident);
             foreach (var field in message.Nodes)
             {
-                CreateProperty(typeBuilder, field.Ident, _typeResolver.Get(field.Type, field.IsRepeated));
+                CreateProperty(typeBuilder, field.Ident, ResolveType(types, field.Type, field.IsRepeated));
             }
 
             return typeBuilder.CreateType();
@@ -43,6 +37,17 @@ namespace BlazorHub.Client.Business
             typeBuilder.DefineDefaultConstructor(MethodAttributes.Public | MethodAttributes.SpecialName | MethodAttributes.RTSpecialName);
 
             return typeBuilder;
+        }
+
+        private Type ResolveType(IDictionary<string, Type> types, string type, bool isRepeated)
+        {
+            var result = types[type];
+            if (isRepeated)
+            {
+                result = typeof(List<>).MakeGenericType(result);
+            }
+
+            return result;
         }
 
         private void CreateProperty(TypeBuilder typeBuilder, string propertyName, Type propertyType)

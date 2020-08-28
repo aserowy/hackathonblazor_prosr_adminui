@@ -20,7 +20,7 @@ namespace BlazorHub.Client
 
             builder.Services.AddTransient<IActionTypeNameResolver, ActionTypeResolver>();
             builder.Services.AddTransient<IBuilder, Builder>();
-            builder.Services.AddTransient<IFieldTypeResolver, FieldTypeResolver>();
+            builder.Services.AddTransient<ITypeResolver, TypeResolver>();
             builder.Services.AddTransient<IGenericHubClientFactory, GenericHubClientFactory>();
             builder.Services.AddTransient<IMessageResolver, MessageResolver>();
             builder.Services.AddTransient<IMessageResolverFactory, MessageResolverFactory>();

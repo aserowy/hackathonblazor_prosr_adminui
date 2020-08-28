@@ -15,27 +15,29 @@ namespace BlazorHub.Client.Business
 
     internal class MessageResolver : IMessageResolver
     {
-        private readonly IMessageTypeFactory _typeFactory;
+        private readonly ITypeResolver _typeResolver;
         private readonly Ast _ast;
 
-        public MessageResolver(IMessageTypeFactory typeFactory, Ast ast)
+        public MessageResolver(ITypeResolver typeResolver, Ast ast)
         {
-            _typeFactory = typeFactory;
+            _typeResolver = typeResolver;
             _ast = ast;
+
+            _typeResolver.Initialize(_ast);
         }
 
         public Message GetByName(string ident)
         {
             return _ast
                 .Nodes
-                .SelectMany(x => x is Package package ? package.Nodes : new List<INode>() { x })
+                .SelectMany(nd => nd is Package package ? package.Nodes : new List<INode>() { nd })
                 .OfType<Message>()
-                .SingleOrDefault(x => x.Ident == ident);
+                .SingleOrDefault(msg => msg.Ident == ident);
         }
 
         public Type GetType(string ident)
         {
-            return _typeFactory.Create(GetByName(ident));
+            return _typeResolver.Get(ident, false);
         }
 
         public object GetObject(string ident, string json)
