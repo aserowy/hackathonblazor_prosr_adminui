@@ -30,9 +30,14 @@
         }
 
         HubClient.RegisterBinding(
-            ReturningData.Ident, 
+            ReturningData.Ident,
             MessageResolver.GetType(ReturningData.ResponseType),
-            rspns => _response.Value = rspns);
+            rspns =>
+            {
+                _response.Value = rspns;
+
+                StateHasChanged();
+            });
 
         _isInitialized = true;
 
